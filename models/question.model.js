@@ -16,6 +16,7 @@ const QuestionSchema = new mongoose.Schema({
   markSchemeImages: [{ type: Buffer }],
   questionText: { type: String },
   markSchemeText: { type: String },
+  thumbnail: { type: String },
 });
 
 module.exports = mongoose.model("Question", QuestionSchema);
