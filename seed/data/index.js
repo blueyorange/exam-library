@@ -1,7 +1,6 @@
 let questions = require("./questions.js");
 const fs = require("fs/promises");
-
-console.log(process.cwd());
+const imageThumbnail = require("image-thumbnail");
 
 // map data to output format
 questions = questions.map(async (question) => {
@@ -18,6 +17,8 @@ questions = questions.map(async (question) => {
     markSchemeImages,
     answerText,
   } = question;
+  let thumbnail = await imageThumbnail("./seed/data/" + questionImages[0]);
+  thumbnail = thumbnail.toString("base64");
   return {
     number,
     examDate: new Date(date).toLocaleString("en-GB", {
@@ -35,6 +36,7 @@ questions = questions.map(async (question) => {
       async (path) => await Promise.all(fs.readFile("./seed/data/" + path))
     ),
     markSchemeText: answerText,
+    thumbnail,
   };
 });
 
